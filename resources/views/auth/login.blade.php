@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Budgeting</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md mx-4">
+
+        {{-- Header --}}
+        <div class="text-center mb-8">
+            <div class="text-5xl mb-3">💰</div>
+            <h1 class="text-2xl font-bold text-gray-800">Smart Budgeting</h1>
+            <p class="text-gray-500 text-sm mt-1">Kelola keuangan mahasiswamu</p>
+        </div>
+
+        {{-- Card --}}
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-xl font-semibold text-gray-700 mb-6">Masuk ke Akun</h2>
+
+            @if($errors->any())
+                <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            <form action="/login" method="POST" class="space-y-4">
+                @csrf
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" name="email" value="{{ old('email') }}"
+                        placeholder="nama@email.com"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 @error('email') border-red-400 @enderror">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" name="password"
+                        placeholder="••••••••"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-3 rounded-xl font-medium hover:bg-indigo-700 transition-colors">
+                    Masuk
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-500 mt-6">
+                Belum punya akun?
+                <a href="{{ route('register') }}" class="text-indigo-600 font-medium hover:underline">Daftar sekarang</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
