@@ -1,3 +1,18 @@
+@php
+$iconMap = [
+    'Makan & Minum'  => 'bi-cup-hot-fill',
+    'Transport'      => 'bi-bus-front-fill',
+    'Akademik'       => 'bi-book-fill',
+    'Hiburan'        => 'bi-controller',
+    'Blind Box'      => 'bi-gift-fill',
+    'Ngopi'          => 'bi-cup-fill',
+    'Kesehatan'      => 'bi-heart-pulse-fill',
+    'Kos/Kontrakan'  => 'bi-house-fill',
+    'Kuota/Internet' => 'bi-wifi',
+    'Lainnya'        => 'bi-three-dots',
+];
+@endphp
+
 @extends('layouts.app')
 
 @section('title', 'Dashboard - Smart Budgeting')
@@ -96,7 +111,7 @@
         @foreach($topCategories as $item)
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <span class="text-xl">{{ $item->category->icon ?? '💸' }}</span>
+                <span class="text-xl"><i class="bi {{ $iconMap[$item->category->name] ?? 'bi-cash-coin' }} text-indigo-500 text-xl"></i></span>
                 <span class="text-sm text-gray-700">{{ $item->category->name ?? 'Lainnya' }}</span>
             </div>
             <span class="text-sm font-semibold text-red-600">
@@ -120,7 +135,7 @@
             @foreach($recentTransactions as $trx)
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <span class="text-xl">{{ $trx->category->icon ?? '💸' }}</span>
+                    <span class="text-xl"><i class="bi {{ $iconMap[$item->category->name] ?? 'bi-cash-coin' }} text-indigo-500 text-xl"></i></span>
                     <div>
                         <p class="text-sm font-medium text-gray-700">{{ $trx->category->name ?? 'Lainnya' }}</p>
                         <p class="text-xs text-gray-400">{{ $trx->date->translatedFormat('d M Y') }}</p>

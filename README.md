@@ -1,58 +1,192 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💰 Smart Budgeting
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Aplikasi Pengelolaan Keuangan Mahasiswa Berbasis Web**
 
-## About Laravel
+Dikembangkan sebagai bagian dari penelitian pada Mata Kuliah Metode Penelitian,
+Program Studi S1 Sistem Informasi, Fakultas Ilmu Komputer,
+Universitas Pembangunan Nasional "Veteran" Jakarta.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Tentang Aplikasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Smart Budgeting adalah aplikasi web responsif yang dirancang khusus untuk membantu mahasiswa
+dalam mengelola keuangan pribadi secara efektif. Aplikasi ini dikembangkan menggunakan metode
+**Extreme Programming (XP)** dan diuji menggunakan **Black Box Testing** serta **System Usability Scale (SUS)**.
 
-## Learning Laravel
+### Fitur Utama
+- **Pencatatan Transaksi** — Catat pemasukan dan pengeluaran harian dengan kategorisasi
+- **Anggaran Mingguan** — Atur budget per minggu (Senin–Minggu) sesuai pola keuangan mahasiswa
+- **Dashboard Real-time** — Pantau kondisi keuangan dalam satu tampilan
+- **Laporan & Visualisasi** — Grafik pengeluaran harian dan per kategori
+- **Kategori Relevan** — Kategori disesuaikan kebutuhan mahasiswa (Makan, Transport, Ngopi, Blind Box, dll.)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 👥 Tim Pengembang
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+| Nama | NIM |
+|------|-----|
+| Rapolo Joshua Napitupulu | 2410512001 |
+| Alvita Dita Azzahra | 2410512004 |
+| Rafi Fauzi Alfariz | 2410512015 |
+| Varisha Aira Dalimunthe | 2410512027 |
 
-## Agentic Development
+**Dosen Pengampu:** Dr. Hengki Tamando Sihotang, S.Kom., M.Kom
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
+## 🛠️ Teknologi yang Digunakan
+
+| Layer | Teknologi |
+|-------|-----------|
+| Backend | PHP 8.3 + Laravel 11 |
+| Frontend | Blade Template + Tailwind CSS + Vite |
+| Database | MySQL 8 |
+| Ikon | Bootstrap Icons |
+| Grafik | Chart.js |
+| Version Control | Git + GitHub |
+
+---
+
+## ⚙️ Cara Menjalankan Aplikasi
+
+### Prasyarat
+
+Pastikan perangkat sudah terinstall:
+- [Laragon](https://laragon.org/) (bundling PHP 8.3+, MySQL, Apache)
+- [Node.js](https://nodejs.org/) (v18+) & NPM
+- [Git](https://git-scm.com/)
+- [Composer](https://getcomposer.org/) *(sudah termasuk dalam Laragon)*
+
+---
+
+### Langkah Instalasi
+
+**1. Clone Repository**
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/RJoshuu70/Smart_Budgeting.git
+cd Smart_Budgeting
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**2. Install Dependency PHP**
+```bash
+composer install
+```
 
-## Contributing
+**3. Install Dependency Node.js**
+```bash
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**4. Konfigurasi Environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+Edit file `.env`, sesuaikan konfigurasi database:
+```env
+APP_NAME="Smart Budgeting"
+APP_URL=http://localhost:8000
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=smart_budgeting
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+**5. Buat Database**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Buka HeidiSQL (sudah termasuk dalam Laragon), lalu jalankan:
+```sql
+CREATE DATABASE smart_budgeting CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-## License
+**6. Jalankan Migration dan Seeder**
+```bash
+php artisan migrate --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Perintah ini akan membuat semua tabel dan mengisi data kategori default secara otomatis.
+
+---
+
+### Menjalankan Aplikasi
+
+Buka **dua terminal** secara bersamaan:
+
+**Terminal 1 — Compile Asset (CSS/JS)**
+```bash
+npm run dev
+```
+
+**Terminal 2 — Jalankan Server**
+```bash
+php artisan serve
+```
+
+Akses aplikasi di browser:
+```
+http://localhost:8000
+```
+
+---
+
+## 📱 Tampilan Aplikasi
+
+Aplikasi dirancang **mobile-first** dan dapat diakses melalui browser di perangkat apapun tanpa instalasi tambahan.
+
+| Halaman | Deskripsi |
+|---------|-----------|
+| Login / Register | Autentikasi pengguna |
+| Dashboard | Ringkasan keuangan minggu ini |
+| Transaksi | Catat & kelola pemasukan/pengeluaran |
+| Anggaran | Set & monitor budget mingguan |
+| Laporan | Grafik pengeluaran harian & per kategori |
+
+---
+
+## 🧪 Pengujian
+
+Aplikasi diuji menggunakan dua metode:
+
+**1. Black Box Testing**
+Memvalidasi fungsionalitas sistem melalui 10 test case (TC-01 s.d. TC-10) yang mencakup autentikasi, manajemen transaksi, pengelolaan anggaran, dan visualisasi data.
+
+**2. System Usability Scale (SUS)**
+Mengukur tingkat usabilitas aplikasi dengan melibatkan 30–50 mahasiswa aktif sebagai responden melalui kuesioner 10 pernyataan skala Likert 1–5.
+
+---
+
+## 📁 Struktur Proyek
+
+```
+Smart_Budgeting/
+├── app/
+│   ├── Http/Controllers/    # AuthController, DashboardController, dll.
+│   ├── Models/              # User, Transaction, Budget, Category
+│   └── Services/            # BudgetService (logika kalkulasi budget)
+├── database/
+│   ├── migrations/          # Skema tabel database
+│   └── seeders/             # Data kategori default
+├── resources/
+│   └── views/
+│       ├── auth/            # Login, Register
+│       ├── layouts/         # Template utama
+│       ├── transactions/    # Halaman transaksi
+│       ├── budgets/         # Halaman anggaran
+│       ├── reports/         # Halaman laporan & grafik
+│       └── dashboard.blade.php
+└── routes/
+    └── web.php              # Definisi routing aplikasi
+```
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dikembangkan untuk keperluan akademik pada Mata Kuliah Metode Penelitian,
+Universitas Pembangunan Nasional "Veteran" Jakarta — 2026.

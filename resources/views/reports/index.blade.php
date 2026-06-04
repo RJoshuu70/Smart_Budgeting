@@ -72,7 +72,7 @@
                 @foreach($byCategory as $item)
                 <div class="flex justify-between items-center text-sm">
                     <div class="flex items-center gap-2">
-                        <span>{{ $item->category->icon ?? '💸' }}</span>
+                        <span><i class="bi {{ $iconMap[$item->category->name] ?? 'bi-cash-coin' }} text-indigo-500 text-xl"></i></span>
                         <span class="text-gray-700">{{ $item->category->name ?? 'Lainnya' }}</span>
                     </div>
                     <span class="font-semibold text-red-600">

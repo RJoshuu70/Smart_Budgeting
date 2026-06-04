@@ -11,9 +11,11 @@
 
         {{-- Header --}}
         <div class="text-center mb-8">
-            <div class="text-5xl mb-3">💰</div>
+            <div class="text-6xl text-indigo-600 mb-3">
+                <i class="bi bi-piggy-bank-fill"></i>
+            </div>
             <h1 class="text-2xl font-bold text-gray-800">Smart Budgeting</h1>
-            <p class="text-gray-500 text-sm mt-1">Kelola keuangan mahasiswamu</p>
+            <p class="text-gray-500 text-sm mt-1">Kelola keuanganmu</p>
         </div>
 
         {{-- Card --}}

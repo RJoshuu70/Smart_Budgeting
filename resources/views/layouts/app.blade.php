@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Smart Budgeting')</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -12,16 +13,16 @@
     {{-- Navbar --}}
     <nav class="bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="{{ route('dashboard') }}" class="text-xl font-bold text-indigo-600">
-                💰 Smart Budgeting
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-xl font-bold text-indigo-600">
+                <i class="bi bi-piggy-bank-fill"></i>
+                <span>Smart Budgeting</span>
             </a>
             <div class="flex items-center gap-4">
-                <span class="text-sm text-gray-600">Hai, {{ Auth::user()->name }} 👋</span>
+                <span class="text-sm text-gray-600">Hai, {{ Auth::user()->name }}</span>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" 
-                        class="text-sm text-red-500 hover:text-red-700">
-                        Logout
+                    <button type="submit" class="text-sm text-red-500 hover:text-red-700">
+                        <i class="bi bi-box-arrow-right"></i> Logout
                     </button>
                 </form>
             </div>
@@ -31,21 +32,29 @@
     {{-- Bottom Navigation (mobile-friendly) --}}
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
         <div class="flex justify-around items-center py-2">
-            <a href="{{ route('dashboard') }}" 
-               class="flex flex-col items-center text-xs {{ request()->routeIs('dashboard') ? 'text-indigo-600' : 'text-gray-500' }}">
-                🏠 <span>Beranda</span>
+            <a href="{{ route('dashboard') }}"
+            class="flex flex-col items-center text-xs gap-1 px-3 py-1
+                    {{ request()->routeIs('dashboard') ? 'text-indigo-600' : 'text-gray-400' }}">
+                <i class="bi bi-house-door-fill text-xl"></i>
+                <span>Beranda</span>
             </a>
-            <a href="{{ route('transactions.index') }}" 
-               class="flex flex-col items-center text-xs {{ request()->routeIs('transactions*') ? 'text-indigo-600' : 'text-gray-500' }}">
-                📝 <span>Transaksi</span>
+            <a href="{{ route('transactions.index') }}"
+            class="flex flex-col items-center text-xs gap-1 px-3 py-1
+                    {{ request()->routeIs('transactions*') ? 'text-indigo-600' : 'text-gray-400' }}">
+                <i class="bi bi-arrow-left-right text-xl"></i>
+                <span>Transaksi</span>
             </a>
-            <a href="{{ route('budgets.index') }}" 
-               class="flex flex-col items-center text-xs {{ request()->routeIs('budgets*') ? 'text-indigo-600' : 'text-gray-500' }}">
-                🎯 <span>Anggaran</span>
+            <a href="{{ route('budgets.index') }}"
+            class="flex flex-col items-center text-xs gap-1 px-3 py-1
+                    {{ request()->routeIs('budgets*') ? 'text-indigo-600' : 'text-gray-400' }}">
+                <i class="bi bi-bullseye text-xl"></i>
+                <span>Anggaran</span>
             </a>
-            <a href="{{ route('reports.index') }}" 
-               class="flex flex-col items-center text-xs {{ request()->routeIs('reports*') ? 'text-indigo-600' : 'text-gray-500' }}">
-                📊 <span>Laporan</span>
+            <a href="{{ route('reports.index') }}"
+            class="flex flex-col items-center text-xs gap-1 px-3 py-1
+                    {{ request()->routeIs('reports*') ? 'text-indigo-600' : 'text-gray-400' }}">
+                <i class="bi bi-bar-chart-fill text-xl"></i>
+                <span>Laporan</span>
             </a>
         </div>
     </nav>

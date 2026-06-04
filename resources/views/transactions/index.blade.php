@@ -19,7 +19,7 @@
             @foreach($transactions as $trx)
             <div class="flex items-center justify-between p-4 hover:bg-gray-50">
                 <div class="flex items-center gap-3">
-                    <span class="text-2xl">{{ $trx->category->icon ?? '💸' }}</span>
+                    <span class="text-2xl"><i class="bi {{ $iconMap[$item->category->name] ?? 'bi-cash-coin' }} text-indigo-500 text-xl"></i></span>
                     <div>
                         <p class="text-sm font-medium text-gray-800">{{ $trx->category->name }}</p>
                         <p class="text-xs text-gray-400">
