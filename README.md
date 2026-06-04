@@ -1,4 +1,4 @@
-# 💰 Smart Budgeting
+# Smart Budgeting
 
 **Aplikasi Pengelolaan Keuangan Mahasiswa Berbasis Web**
 
@@ -8,7 +8,7 @@ Universitas Pembangunan Nasional "Veteran" Jakarta.
 
 ---
 
-## 📋 Tentang Aplikasi
+## Tentang Aplikasi
 
 Smart Budgeting adalah aplikasi web responsif yang dirancang khusus untuk membantu mahasiswa
 dalam mengelola keuangan pribadi secara efektif. Aplikasi ini dikembangkan menggunakan metode
@@ -23,7 +23,7 @@ dalam mengelola keuangan pribadi secara efektif. Aplikasi ini dikembangkan mengg
 
 ---
 
-## 👥 Tim Pengembang
+## Tim Pengembang
 
 | Nama | NIM |
 |------|-----|
@@ -36,7 +36,7 @@ dalam mengelola keuangan pribadi secara efektif. Aplikasi ini dikembangkan mengg
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 | Layer | Teknologi |
 |-------|-----------|
@@ -45,11 +45,22 @@ dalam mengelola keuangan pribadi secara efektif. Aplikasi ini dikembangkan mengg
 | Database | MySQL 8 |
 | Ikon | Bootstrap Icons |
 | Grafik | Chart.js |
+| Deployment | Railway |
 | Version Control | Git + GitHub |
 
 ---
 
-## ⚙️ Cara Menjalankan Aplikasi
+## Akses Aplikasi
+
+Aplikasi dapat diakses secara online melalui:
+
+```
+[URL akan diupdate setelah deploy ke Railway]
+```
+
+---
+
+## Cara Menjalankan Secara Lokal
 
 ### Prasyarat
 
@@ -58,8 +69,6 @@ Pastikan perangkat sudah terinstall:
 - [Node.js](https://nodejs.org/) (v18+) & NPM
 - [Git](https://git-scm.com/)
 - [Composer](https://getcomposer.org/) *(sudah termasuk dalam Laragon)*
-
----
 
 ### Langkah Instalasi
 
@@ -110,10 +119,6 @@ CREATE DATABASE smart_budgeting CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 php artisan migrate --seed
 ```
 
-Perintah ini akan membuat semua tabel dan mengisi data kategori default secara otomatis.
-
----
-
 ### Menjalankan Aplikasi
 
 Buka **dua terminal** secara bersamaan:
@@ -135,7 +140,52 @@ http://localhost:8000
 
 ---
 
-## 📱 Tampilan Aplikasi
+## Deploy ke Railway
+
+### Prasyarat
+- Akun [Railway](https://railway.app) (login dengan GitHub)
+- Repository sudah ter-push ke GitHub
+
+### Langkah Deploy
+
+**1. Buat Project Baru di Railway**
+- Login ke railway.app
+- Klik **New Project** → **Deploy from GitHub repo**
+- Pilih repo `Smart_Budgeting`
+
+**2. Tambah Database MySQL**
+- Di dashboard project, klik **+ New** → **Database** → **MySQL**
+- Catat credentials yang diberikan Railway
+
+**3. Set Environment Variables**
+
+Di service Laravel → tab **Variables**, tambahkan:
+```
+APP_NAME=Smart Budgeting
+APP_ENV=production
+APP_KEY=base64:xxxx (generate dengan php artisan key:generate --show)
+APP_DEBUG=false
+APP_URL=https://subdomain-kalian.up.railway.app
+
+DB_CONNECTION=mysql
+DB_HOST=(dari Railway MySQL)
+DB_PORT=(dari Railway MySQL)
+DB_DATABASE=(dari Railway MySQL)
+DB_USERNAME=(dari Railway MySQL)
+DB_PASSWORD=(dari Railway MySQL)
+
+SESSION_DRIVER=database
+CACHE_DRIVER=database
+QUEUE_CONNECTION=database
+```
+
+**4. Generate Domain**
+- Klik service Laravel → **Settings** → **Networking** → **Generate Domain**
+- Salin URL yang diberikan untuk disebarkan ke responden
+
+---
+
+## Tampilan Aplikasi
 
 Aplikasi dirancang **mobile-first** dan dapat diakses melalui browser di perangkat apapun tanpa instalasi tambahan.
 
@@ -149,19 +199,19 @@ Aplikasi dirancang **mobile-first** dan dapat diakses melalui browser di perangk
 
 ---
 
-## 🧪 Pengujian
+## Pengujian
 
 Aplikasi diuji menggunakan dua metode:
 
 **1. Black Box Testing**
-Memvalidasi fungsionalitas sistem melalui 10 test case (TC-01 s.d. TC-10) yang mencakup autentikasi, manajemen transaksi, pengelolaan anggaran, dan visualisasi data.
+Memvalidasi fungsionalitas sistem melalui 10 test case (TC-01 s.d. TC-10) yang mencakup autentikasi, manajemen transaksi, pengelolaan anggaran, dan visualisasi data. Hasil: 10/10 test case Pass (100%).
 
 **2. System Usability Scale (SUS)**
 Mengukur tingkat usabilitas aplikasi dengan melibatkan 30–50 mahasiswa aktif sebagai responden melalui kuesioner 10 pernyataan skala Likert 1–5.
 
 ---
 
-## 📁 Struktur Proyek
+## Struktur Proyek
 
 ```
 Smart_Budgeting/
@@ -180,13 +230,15 @@ Smart_Budgeting/
 │       ├── budgets/         # Halaman anggaran
 │       ├── reports/         # Halaman laporan & grafik
 │       └── dashboard.blade.php
-└── routes/
-    └── web.php              # Definisi routing aplikasi
+├── routes/
+│   └── web.php              # Definisi routing aplikasi
+├── nixpacks.toml            # Konfigurasi build Railway
+└── Procfile                 # Konfigurasi web server Railway
 ```
 
 ---
 
-## 📄 Lisensi
+## Lisensi
 
 Proyek ini dikembangkan untuk keperluan akademik pada Mata Kuliah Metode Penelitian,
 Universitas Pembangunan Nasional "Veteran" Jakarta — 2026.
