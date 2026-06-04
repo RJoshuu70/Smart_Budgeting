@@ -14,7 +14,7 @@
     <nav class="bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-xl font-bold text-indigo-600">
-                <i class="bi bi-piggy-bank-fill"></i>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8">
                 <span>Smart Budgeting</span>
             </a>
             <div class="flex items-center gap-4">
@@ -29,19 +29,19 @@
         </div>
     </nav>
 
-    {{-- Bottom Navigation (mobile-friendly) --}}
+    {{-- Bottom Navigation --}}
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
         <div class="flex justify-around items-center py-2">
             <a href="{{ route('dashboard') }}"
             class="flex flex-col items-center text-xs gap-1 px-3 py-1
                     {{ request()->routeIs('dashboard') ? 'text-indigo-600' : 'text-gray-400' }}">
-                <i class="bi bi-house-door-fill text-xl"></i>
+                <i class="bi bi-house-door text-xl"></i>
                 <span>Beranda</span>
             </a>
             <a href="{{ route('transactions.index') }}"
             class="flex flex-col items-center text-xs gap-1 px-3 py-1
                     {{ request()->routeIs('transactions*') ? 'text-indigo-600' : 'text-gray-400' }}">
-                <i class="bi bi-arrow-left-right text-xl"></i>
+                <i class="bi bi-wallet2 text-xl"></i>
                 <span>Transaksi</span>
             </a>
             <a href="{{ route('budgets.index') }}"
@@ -53,7 +53,7 @@
             <a href="{{ route('reports.index') }}"
             class="flex flex-col items-center text-xs gap-1 px-3 py-1
                     {{ request()->routeIs('reports*') ? 'text-indigo-600' : 'text-gray-400' }}">
-                <i class="bi bi-bar-chart-fill text-xl"></i>
+                <i class="bi bi-file-earmark-bar-graph text-xl"></i>
                 <span>Laporan</span>
             </a>
         </div>

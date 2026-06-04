@@ -1,3 +1,18 @@
+@php
+$iconMap = [
+    'Makan & Minum'  => 'bi-cup-hot-fill',
+    'Transport'      => 'bi-bus-front-fill',
+    'Akademik'       => 'bi-book-fill',
+    'Hiburan'        => 'bi-controller',
+    'Blind Box'      => 'bi-gift-fill',
+    'Ngopi'          => 'bi-cup-fill',
+    'Kesehatan'      => 'bi-heart-pulse-fill',
+    'Kos/Kontrakan'  => 'bi-house-fill',
+    'Kuota/Internet' => 'bi-wifi',
+    'Lainnya'        => 'bi-three-dots',
+];
+@endphp
+
 @extends('layouts.app')
 
 @section('title', 'Laporan - Smart Budgeting')
@@ -6,6 +21,9 @@
 
 {{-- Filter Period --}}
 <div class="flex gap-3 mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">
+        <i class="bi bi-file-earmark-bar-graph text-indigo-600 mr-1"></i> Laporan
+    </h1>
     <a href="{{ route('reports.index', ['period' => 'week']) }}"
        class="px-4 py-2 rounded-xl text-sm font-medium transition-colors
               {{ $period === 'week' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 border border-gray-200' }}">
@@ -49,12 +67,14 @@
 
 {{-- Bar Chart: Pengeluaran Harian --}}
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-    <h2 class="font-semibold text-gray-700 mb-4">📊 Pengeluaran Harian</h2>
+    <h2 class="font-semibold text-gray-700 mb-4">
+        <i class="bi bi-bar-chart-fill mr-1"></i> Pengeluaran Harian
+    </h2>
     @if(array_sum($totals) > 0)
         <canvas id="barChart" height="120"></canvas>
     @else
         <div class="text-center py-8 text-gray-300">
-            <p class="text-4xl mb-2">📊</p>
+            <i class="bi bi-bar-chart text-4xl text-gray-300 mb-2 block"></i>
             <p class="text-sm">Belum ada data pengeluaran</p>
         </div>
     @endif
@@ -62,7 +82,9 @@
 
 {{-- Pie Chart: Per Kategori --}}
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-    <h2 class="font-semibold text-gray-700 mb-4">🍩 Pengeluaran per Kategori</h2>
+    <h2 class="font-semibold text-gray-700 mb-4">
+        <i class="bi bi-pie-chart-fill mr-1"></i> Pengeluaran per Kategori
+    </h2>
     @if($byCategory->count() > 0)
         <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="w-full md:w-1/2">
@@ -84,7 +106,7 @@
         </div>
     @else
         <div class="text-center py-8 text-gray-300">
-            <p class="text-4xl mb-2">🍩</p>
+            <i class="bi bi-pie-chart text-4xl text-gray-300 mb-2 block"></i>
             <p class="text-sm">Belum ada data kategori</p>
         </div>
     @endif
@@ -99,7 +121,7 @@
     const dates  = @json($dates);
     const totals = @json($totals);
 
-    const categoryLabels = @json($byCategory->map(fn($i) => ($i->category->icon ?? '💸') . ' ' . ($i->category->name ?? 'Lainnya')));
+    const categoryLabels = @json($byCategory->map(fn($i) => $i->category->name ?? 'Lainnya'));
     const categoryTotals = @json($byCategory->pluck('total')->map(fn($v) => (float)$v));
     const categoryColors = @json($byCategory->map(fn($i) => $i->category->color ?? '#94a3b8'));
 

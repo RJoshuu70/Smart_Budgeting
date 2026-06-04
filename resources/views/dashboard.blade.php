@@ -22,7 +22,7 @@ $iconMap = [
 {{-- Header Greeting --}}
 <div class="mb-6">
     <h1 class="text-2xl font-bold text-gray-800">
-        Hai, {{ Auth::user()->name }} 👋
+        Hai, {{ Auth::user()->name }}
     </h1>
     <p class="text-sm text-gray-500 mt-1">
         Minggu ini: {{ $weekStart->translatedFormat('d M') }} – {{ $weekEnd->translatedFormat('d M Y') }}
@@ -48,7 +48,9 @@ $iconMap = [
 {{-- Budget Status Card --}}
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
     <div class="flex justify-between items-center mb-3">
-        <h2 class="font-semibold text-gray-700">🎯 Budget Minggu Ini</h2>
+        <h2 class="font-semibold text-gray-700">
+            <i class="bi bi-bullseye mr-1"></i> Budget Minggu Ini
+        </h2>
         <a href="{{ route('budgets.index') }}" class="text-xs text-indigo-500 hover:underline">Atur</a>
     </div>
 
@@ -84,9 +86,13 @@ $iconMap = [
         <div class="flex justify-between text-xs text-gray-500">
             <span>Budget: Rp {{ number_format($budgetStatus['budget'], 0, ',', '.') }}</span>
             @if($status === 'over')
-                <span class="text-red-500 font-semibold">⚠️ Over Budget!</span>
+                <span class="text-red-500 font-semibold">
+                    <i class="bi bi-exclamation-triangle-fill mr-1"></i> Over Budget!
+                </span>
             @elseif($status === 'warning')
-                <span class="text-yellow-500 font-semibold">⚠️ Hampir habis</span>
+                <span class="text-yellow-500 font-semibold">
+                    <i class="bi bi-exclamation-triangle-fill mr-1"></i> Hampir habis
+                </span>
             @else
                 <span class="text-green-500">Sisa: Rp {{ number_format($budgetStatus['remaining'], 0, ',', '.') }}</span>
             @endif
@@ -106,7 +112,9 @@ $iconMap = [
 {{-- Top Pengeluaran --}}
 @if($topCategories->count() > 0)
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-    <h2 class="font-semibold text-gray-700 mb-4">🔥 Pengeluaran Terbesar Minggu Ini</h2>
+    <h2 class="font-semibold text-gray-700 mb-4">
+        <i class="bi bi-fire mr-1"></i> Pengeluaran Terbesar Minggu Ini
+    </h2>
     <div class="space-y-3">
         @foreach($topCategories as $item)
         <div class="flex items-center justify-between">
@@ -126,7 +134,9 @@ $iconMap = [
 {{-- Transaksi Terbaru --}}
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="font-semibold text-gray-700">📋 Transaksi Terbaru</h2>
+        <h2 class="font-semibold text-gray-700">
+            <i class="bi bi-clock-history mr-1"></i> Transaksi Terbaru
+        </h2>
         <a href="{{ route('transactions.index') }}" class="text-xs text-indigo-500 hover:underline">Lihat semua</a>
     </div>
 
@@ -135,7 +145,7 @@ $iconMap = [
             @foreach($recentTransactions as $trx)
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <span class="text-xl"><i class="bi {{ $iconMap[$item->category->name] ?? 'bi-cash-coin' }} text-indigo-500 text-xl"></i></span>
+                    <span class="text-xl"><i class="bi {{ $iconMap[$trx->category->name] ?? 'bi-cash-coin' }} text-indigo-500"></i></span>
                     <div>
                         <p class="text-sm font-medium text-gray-700">{{ $trx->category->name ?? 'Lainnya' }}</p>
                         <p class="text-xs text-gray-400">{{ $trx->date->translatedFormat('d M Y') }}</p>

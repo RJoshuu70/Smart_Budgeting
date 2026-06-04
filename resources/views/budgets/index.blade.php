@@ -1,3 +1,18 @@
+@php
+$iconMap = [
+    'Makan & Minum'  => 'bi-cup-hot-fill',
+    'Transport'      => 'bi-bus-front-fill',
+    'Akademik'       => 'bi-book-fill',
+    'Hiburan'        => 'bi-controller',
+    'Blind Box'      => 'bi-gift-fill',
+    'Ngopi'          => 'bi-cup-fill',
+    'Kesehatan'      => 'bi-heart-pulse-fill',
+    'Kos/Kontrakan'  => 'bi-house-fill',
+    'Kuota/Internet' => 'bi-wifi',
+    'Lainnya'        => 'bi-three-dots',
+];
+@endphp
+
 @extends('layouts.app')
 
 @section('title', 'Anggaran - Smart Budgeting')
@@ -5,7 +20,9 @@
 @section('content')
 
 <div class="flex justify-between items-center mb-2">
-    <h1 class="text-2xl font-bold text-gray-800">🎯 Anggaran</h1>
+    <h1 class="text-2xl font-bold text-gray-800">
+        <i class="bi bi-bullseye text-indigo-600 mr-1"></i> Anggaran
+    </h1>
     <button onclick="document.getElementById('modal-add-budget').classList.remove('hidden')"
         class="bg-indigo-600 text-white text-sm px-4 py-2 rounded-xl hover:bg-indigo-700">
         + Set Budget
@@ -27,8 +44,8 @@
                 default     => 'bg-green-500',
             };
             $statusText = match(true) {
-                $pct >= 100 => '⚠️ Over Budget!',
-                $pct >= 75  => '⚠️ Hampir habis',
+                $pct >= 100 => 'Over Budget!',
+                $pct >= 75  => 'Hampir habis',
                 default     => 'Aman',
             };
             $statusColor = match(true) {
@@ -40,7 +57,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2">
-                    <span class="text-xl">{{ $item['budget']->category->icon ?? '🎯' }}</span>
+                    <i class="bi bi-bullseye text-indigo-500 text-xl"></i>
                     <span class="font-semibold text-gray-700">
                         {{ $item['budget']->category->name ?? 'Total Budget' }}
                     </span>
@@ -74,7 +91,7 @@
     </div>
 @else
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center mb-6">
-        <p class="text-4xl mb-3">🎯</p>
+        <i class="bi bi-bullseye text-4xl text-gray-300 mb-3 block"></i>
         <p class="text-gray-400 text-sm">Belum ada budget minggu ini</p>
         <p class="text-gray-300 text-xs mt-1">Tap "+ Set Budget" untuk mulai mengatur anggaran</p>
     </div>
@@ -82,7 +99,9 @@
 
 {{-- Tips Card --}}
 <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4">
-    <p class="text-sm font-semibold text-indigo-700 mb-1">💡 Tips Budget</p>
+    <p class="text-sm font-semibold text-indigo-700 mb-1">
+        <i class="bi bi-lightbulb-fill mr-1"></i> Tips Budget
+    </p>
     <p class="text-xs text-indigo-500">
         Budget direset setiap Senin. Atur budget minggu ini sebelum mulai belanja
         agar pengeluaranmu lebih terkontrol.
