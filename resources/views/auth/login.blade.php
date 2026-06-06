@@ -1,11 +1,3 @@
-@php
-    $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
-    $cssFile = $manifest['resources/css/app.css']['file'] ?? 'assets/app.css';
-    $jsFile = $manifest['resources/js/app.js']['file'] ?? 'assets/app.js';
-@endphp
-<link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}">
-<script type="module" src="{{ asset('build/' . $jsFile) }}" defer></script>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,7 +6,13 @@
     <title>Login - Smart Budgeting</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-DpYi8pJZ.css') }}">
+    @php
+        $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
+        $cssFile = $manifest['resources/css/app.css']['file'] ?? 'assets/app.css';
+        $jsFile = $manifest['resources/js/app.js']['file'] ?? 'assets/app.js';
+    @endphp
+    <link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}">
+    <script type="module" src="{{ asset('build/' . $jsFile) }}" defer></script>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen flex items-center justify-center">
     <div class="w-full max-w-md mx-4">
