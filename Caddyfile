@@ -1,0 +1,18 @@
+{
+    auto_https off
+    admin off
+}
+
+:{$PORT} {
+    root * /app/public
+    encode gzip
+    
+    php_server
+    
+    file_server
+    
+    @static {
+        path *.css *.js *.woff *.woff2 *.png *.jpg *.ico *.svg
+    }
+    header @static Cache-Control "public, max-age=31536000, immutable"
+}
