@@ -23,7 +23,10 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $cat) {
-            Category::create([...$cat, 'is_default' => true]);
+            Category::firstOrCreate(
+                ['name' => $cat['name']],
+                [...$cat, 'is_default' => true]
+            );
         }
     }
 }
