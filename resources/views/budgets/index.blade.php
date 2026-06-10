@@ -62,7 +62,24 @@ $iconMap = [
                     <i class="bi {{ $catIcon }} text-indigo-500 text-xl"></i>
                     <span class="font-semibold text-gray-700">{{ $catName }}</span>
                 </div>
-                <span class="{{ $statusColor }} text-xs font-semibold">{{ $statusText }}</span>
+                <div class="flex items-center gap-2">
+                    <span class="{{ $statusColor }} text-xs font-semibold">{{ $statusText }}</span>
+                    {{-- Tombol Edit --}}
+                    <button type="button"
+                        onclick="openEditBudget({{ $item['budget']->id }}, {{ $item['budget']->amount }})"
+                        class="text-indigo-400 hover:text-indigo-600 text-sm p-1">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    {{-- Tombol Hapus --}}
+                    <form action="{{ route('budgets.destroy', $item['budget']->id) }}" method="POST"
+                          onsubmit="return confirm('Hapus budget ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-400 hover:text-red-600 text-sm p-1">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
 
             <div class="w-full bg-gray-100 rounded-full h-2.5 mb-3">
@@ -116,114 +133,121 @@ $iconMap = [
      class="hidden fixed inset-0 z-[999]"
      style="background: rgba(0,0,0,0.5);"
      onclick="if(event.target===this)this.classList.add('hidden')">
-
-    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 max-h-[90vh] overflow-y-auto">
-
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 overflow-y-auto"
+         style="max-height: 92vh;">
         <div class="flex justify-between items-center mb-5">
             <h2 class="text-lg font-bold text-gray-800">Set Budget Minggu Ini</h2>
             <button type="button"
                 onclick="document.getElementById('modal-add-budget').classList.add('hidden')"
                 class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
         </div>
-
         <form action="{{ route('budgets.store') }}" method="POST" class="space-y-4">
             @csrf
-
-            {{-- Custom Dropdown Kategori dengan Bootstrap Icons --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Kategori <span class="text-gray-400 font-normal">(kosongkan untuk budget total)</span>
                 </label>
-
-                <input type="hidden" name="category_id" id="selected_category_id" value="">
-
-                <div class="relative">
-                    {{-- Trigger button --}}
-                    <button type="button" id="category-trigger"
-                        onclick="toggleDropdown()"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm text-left flex items-center gap-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                        <i class="bi bi-bullseye text-gray-400" id="selected-cat-icon"></i>
-                        <span id="selected-cat-label" class="text-gray-400 flex-1">Total Budget (semua kategori)</span>
-                        <i class="bi bi-chevron-down text-gray-400 text-xs"></i>
+                <input type="hidden" name="category_id" id="add_budget_cat_id" value="">
+                <button type="button" id="add-budget-cat-trigger"
+                    onclick="toggleDropdown('add-budget-cat-dropdown')"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm text-left flex items-center gap-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    <i class="bi bi-bullseye text-gray-400" id="add-budget-cat-icon"></i>
+                    <span id="add-budget-cat-label" class="text-gray-400 flex-1">Total Budget (semua kategori)</span>
+                    <i class="bi bi-chevron-up text-gray-400 text-xs"></i>
+                </button>
+                <div id="add-budget-cat-dropdown"
+                     class="hidden mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-44 overflow-y-auto z-10">
+                    <button type="button"
+                        onclick="selectBudgetCat('add', '', 'bi-bullseye', 'Total Budget (semua kategori)', false)"
+                        class="w-full px-4 py-3 text-sm text-left flex items-center gap-3 hover:bg-indigo-50 border-b border-gray-50">
+                        <i class="bi bi-bullseye text-gray-400"></i>
+                        <span class="text-gray-500">Total Budget (semua kategori)</span>
                     </button>
-
-                    {{-- Dropdown list --}}
-                    <div id="category-dropdown"
-                         class="hidden absolute bottom-full left-0 right-0 mb-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto z-10">
-
-                        {{-- Opsi Total Budget --}}
-                        <button type="button"
-                            onclick="selectCategory('', 'bi-bullseye', 'Total Budget (semua kategori)', false)"
-                            class="w-full px-4 py-3 text-sm text-left flex items-center gap-3 hover:bg-indigo-50 border-b border-gray-50">
-                            <i class="bi bi-bullseye text-gray-400"></i>
-                            <span class="text-gray-500">Total Budget (semua kategori)</span>
-                        </button>
-
-                        {{-- Opsi per Kategori --}}
-                        @foreach($categories->unique('name') as $cat)
-                        @php $catIcon = $iconMap[$cat->name] ?? 'bi-cash-coin'; @endphp
-                        <button type="button"
-                            onclick="selectCategory('{{ $cat->id }}', '{{ $catIcon }}', '{{ $cat->name }}', true)"
-                            class="w-full px-4 py-3 text-sm text-left flex items-center gap-3 hover:bg-indigo-50 border-b border-gray-50 last:border-0">
-                            <i class="bi {{ $catIcon }} text-indigo-500"></i>
-                            <span class="text-gray-700">{{ $cat->name }}</span>
-                        </button>
-                        @endforeach
-
-                    </div>
+                    @foreach($categories->unique('name') as $cat)
+                    @php $ci = $iconMap[$cat->name] ?? 'bi-cash-coin'; @endphp
+                    <button type="button"
+                        onclick="selectBudgetCat('add', '{{ $cat->id }}', '{{ $ci }}', '{{ $cat->name }}', true)"
+                        class="w-full px-4 py-3 text-sm text-left flex items-center gap-3 hover:bg-indigo-50 border-b border-gray-50 last:border-0">
+                        <i class="bi {{ $ci }} text-indigo-500"></i>
+                        <span class="text-gray-700">{{ $cat->name }}</span>
+                    </button>
+                    @endforeach
                 </div>
             </div>
-
-            {{-- Nominal --}}
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Nominal Budget (Rp)
-                </label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nominal Budget (Rp)</label>
                 <input type="number" name="amount" placeholder="Contoh: 200000" min="1000"
                     class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
                 <p class="text-xs text-gray-400 mt-1">Budget berlaku untuk minggu ini (Senin–Minggu)</p>
             </div>
-
             @if($errors->any())
-                <div class="p-3 bg-red-50 rounded-xl text-sm text-red-600">
-                    {{ $errors->first() }}
-                </div>
+                <div class="p-3 bg-red-50 rounded-xl text-sm text-red-600">{{ $errors->first() }}</div>
             @endif
-
-            <button type="submit"
-                class="w-full bg-indigo-600 text-white py-3 rounded-xl font-medium hover:bg-indigo-700">
+            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-medium hover:bg-indigo-700">
                 Simpan Budget
             </button>
         </form>
     </div>
 </div>
 
+{{-- Modal Edit Budget --}}
+<div id="modal-edit-budget"
+     class="hidden fixed inset-0 z-[999]"
+     style="background: rgba(0,0,0,0.5);"
+     onclick="if(event.target===this)this.classList.add('hidden')">
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 overflow-y-auto"
+         style="max-height: 92vh;">
+        <div class="flex justify-between items-center mb-5">
+            <h2 class="text-lg font-bold text-gray-800">Edit Budget</h2>
+            <button type="button"
+                onclick="document.getElementById('modal-edit-budget').classList.add('hidden')"
+                class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+        </div>
+        <form id="edit-budget-form" method="POST" class="space-y-4">
+            @csrf
+            @method('PUT')
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nominal Budget (Rp)</label>
+                <input type="number" name="amount" id="edit-budget-amount" placeholder="Contoh: 200000" min="1000"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <p class="text-xs text-gray-400 mt-1">Kategori tidak dapat diubah. Hapus dan buat baru jika ingin mengganti kategori.</p>
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-medium hover:bg-indigo-700">
+                Simpan Perubahan
+            </button>
+        </form>
+    </div>
+</div>
+
 <script>
-function toggleDropdown() {
-    const dd = document.getElementById('category-dropdown');
-    dd.classList.toggle('hidden');
+function toggleDropdown(id) {
+    document.getElementById(id).classList.toggle('hidden');
 }
 
-function selectCategory(id, icon, label, isCategory) {
-    document.getElementById('selected_category_id').value = id;
-
-    const iconEl  = document.getElementById('selected-cat-icon');
-    const labelEl = document.getElementById('selected-cat-label');
-
+function selectBudgetCat(prefix, id, icon, label, isCategory) {
+    document.getElementById(prefix + '_budget_cat_id').value = id;
+    const iconEl  = document.getElementById(prefix + '-budget-cat-icon');
+    const labelEl = document.getElementById(prefix + '-budget-cat-label');
     iconEl.className  = 'bi ' + icon + (isCategory ? ' text-indigo-500' : ' text-gray-400');
     labelEl.textContent = label;
-    labelEl.className = isCategory ? 'text-gray-800 flex-1' : 'text-gray-400 flex-1';
-
-    document.getElementById('category-dropdown').classList.add('hidden');
+    labelEl.className = (isCategory ? 'text-gray-800' : 'text-gray-400') + ' flex-1';
+    document.getElementById(prefix + '-budget-cat-dropdown').classList.add('hidden');
 }
 
-// Tutup dropdown kalau klik di luar area dropdown
+function openEditBudget(id, amount) {
+    document.getElementById('edit-budget-form').action = '/budgets/' + id;
+    document.getElementById('edit-budget-amount').value = amount;
+    document.getElementById('modal-edit-budget').classList.remove('hidden');
+}
+
 document.addEventListener('click', function(e) {
-    const trigger  = document.getElementById('category-trigger');
-    const dropdown = document.getElementById('category-dropdown');
-    if (trigger && dropdown && !trigger.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add('hidden');
-    }
+    ['add-budget-cat'].forEach(function(prefix) {
+        const trigger  = document.getElementById(prefix + '-trigger');
+        const dropdown = document.getElementById(prefix + '-dropdown');
+        if (trigger && dropdown && !trigger.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
 });
 </script>
 
