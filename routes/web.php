@@ -25,9 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/transactions/{id}',   [TransactionController::class, 'update'])->name('transactions.update');
     Route::delete('/transactions/{id}',[TransactionController::class, 'destroy'])->name('transactions.destroy');
 
-    Route::get('/budgets',       [BudgetController::class, 'index'])->name('budgets.index');
-    Route::post('/budgets',      [BudgetController::class, 'store'])->name('budgets.store');
-    Route::put('/budgets/{id}',  [BudgetController::class, 'update'])->name('budgets.update');
+    Route::get('/budgets',          [BudgetController::class, 'index'])->name('budgets.index');
+    Route::post('/budgets',         [BudgetController::class, 'store'])->name('budgets.store');
+    Route::put('/budgets/{id}',     [BudgetController::class, 'update'])->name('budgets.update');
+    Route::delete('/budgets/{id}',  [BudgetController::class, 'destroy'])->name('budgets.destroy');
 
     Route::get('/reports',      [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/data', [ReportController::class, 'data'])->name('reports.data');

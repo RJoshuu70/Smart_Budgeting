@@ -85,4 +85,13 @@ class BudgetController extends Controller
         return redirect()->route('budgets.index')
             ->with('success', 'Budget berhasil diperbarui!');
     }
+
+    public function destroy($id)
+    {
+        $budget = Budget::where('user_id', Auth::id())->findOrFail($id);
+        $budget->delete();
+
+        return redirect()->route('budgets.index')
+            ->with('success', 'Budget berhasil dihapus!');
+    }
 }
